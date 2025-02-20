@@ -23,25 +23,8 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
     @Override
     public void onLoad(String mixinPackage) {
         LogManager.setLogFile(Paths.get("./CustomSkinLoader/CustomSkinLoader.log"));
-        URL versionJson = ClassLoader.getSystemClassLoader().getResource("version.json");
-        if (versionJson != null) {
-            logger.info("\"version.json\": " + versionJson);
-            try (
-                InputStream is = versionJson.openStream();
-                InputStreamReader isr = new InputStreamReader(is)
-            ) {
-                JsonObject object = new JsonParser().parse(isr).getAsJsonObject();
-                String name = object.get("name").getAsString();
-                this.world_version = object.get("world_version").getAsLong();
-                this.protocol_version = object.get("protocol_version").getAsLong();
-                logger.info("MinecraftVersion: {name='" + name + "', world_version='" + this.world_version + "', protocol_version='" + this.protocol_version + "'}");
-            } catch (Throwable t) {
-                logger.warning("An exception occurred when reading \"version.json\"!");
-                logger.warning(t);
-            }
-        } else {
-            logger.warning("Can't read \"version.json\"! Ignore this message if the version you start is earlier than 18w47b.");
-        }
+        this.world_version = 3955;
+        this.protocol_version = 767;
     }
 
     @Override
